@@ -18,11 +18,12 @@ def load_word():
 
 
 def is_word_guessed(secret_word, letters_guessed):
-    guess = True
-    if letters_guessed not in secret_word:
-        guess = False
-    else letters_guessed in len(secret_word):
-        return guess
+    for letter in secret_word:
+        if letter in letters_guessed:
+            continue
+        else:
+            return False
+    return True
 
     # A function that checks if all the letters of the secret word have been guessed.
     # Args:
@@ -35,18 +36,26 @@ def is_word_guessed(secret_word, letters_guessed):
     pass
 
 def get_guessed_word(secret_word, letters_guessed):
-    '''
-    A function that is used to get a string showing the letters guessed so far in the secret word and underscores for letters that have not been guessed yet.
-    Args:
-        secret_word (string): the random word the user is trying to guess.
-        letters_guessed (list of strings): list of letters that have been guessed so far.
-    Returns:
-        string: letters and underscores.  For letters in the word that the user has guessed correctly, the string should contain the letter at the correct position.  For letters in the word that the user has not yet guessed, shown an _ (underscore) instead.
-    '''
+    guessed_word = ""
+    for letter in secret_word:
+        if letter in letters_guessed:
+            guessed_word += letter
+        else:
+            guessed_word += "_"
+        return guessed_word
 
-    #TODO: Loop through the letters in secret word and build a string that shows the letters that have been guessed correctly so far that are saved in letters_guessed and underscores for the letters that have not been guessed yet
-
-    pass
+    # '''
+    # A function that is used to get a string showing the letters guessed so far in the secret word and underscores for letters that have not been guessed yet.
+    # Args:
+    #     secret_word (string): the random word the user is trying to guess.
+    #     letters_guessed (list of strings): list of letters that have been guessed so far.
+    # Returns:
+    #     string: letters and underscores.  For letters in the word that the user has guessed correctly, the string should contain the letter at the correct position.  For letters in the word that the user has not yet guessed, shown an _ (underscore) instead.
+    # '''
+    #
+    # #TODO: Loop through the letters in secret word and build a string that shows the letters that have been guessed correctly so far that are saved in letters_guessed and underscores for the letters that have not been guessed yet
+    #
+    # pass
 
 
 def is_guess_in_word(guess, secret_word):
@@ -85,10 +94,6 @@ def spaceman(secret_word):
 
 
 
-tries = 7
-guess = input("Guess")
-
-
 #These function calls that will start the game
 secret_word = load_word()
-spaceman(load_word())
+spaceman(secret_word)
