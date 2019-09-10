@@ -108,21 +108,17 @@ def spaceman(secret_word):
             letter = input("Please enter a new letter:  ")
 
         letters_guessed.append(letter)
+        print(get_guessed_word(secret_word, letters_guessed))
         #TODO: Check if the guessed letter is in the secret or not and give the player feedback
         if is_guess_in_word(letter,secret_word) == True:
             print("The letter is correct!")
         else:
             print("Try again!")
             attempt += 1
-        #lists the incorrect words so far
-        print("The incorrect letters so far are: ", get_wrong_letters(letters_guessed,secret_word))
-
-
-
-
+        print("Attempted Letters: ", *letters_guessed)
+        letters_left.remove(letter)
 
         #TODO: show the guessed word so far
-        print(get_guessed_word(secret_word, letters_guessed))
         #TODO: check if the game has been won or lost
 
         #check why the y/n is not working
