@@ -1,4 +1,5 @@
 from random import choice
+import string
 
 
 def load_word():
@@ -71,45 +72,92 @@ def is_guess_in_word(guess, secret_word):
     #     bool: True if the guess is in the secret_word, False otherwise
     # '''
     # TODO: check if the letter guess is in the secret word
-
+def get_wrong_letters(letters_guessed,secret_word):
+        wrongLetters = []
+        for letter in letters_guessed:
+            if letter not in secret_word:
+                wrongLetters+=letter
+                return wrongLetters
 
 def spaceman(secret_word):
-
-
     # '''
     # A function that controls the game of spaceman. Will start spaceman in the command line.
     # Args:
     #   secret_word (string): the secret word to guess.
     # '''
-
     # TODO: show the guessed word so far
     # TODO: show the player information about the game according to the project spec
     # TODO: Ask the player to guess one letter per round and check that it is only one letter
     #  determine the number of turns
-    count = 7
-    # check if the turns are more than zero
-    while count > 0:
-        # make a counter that starts with zero
-        failed = 0
-
-        if is_guess_in_word(guess, secret_word) == True:
-            print("Correct guess")
-        else:
-            print("Incorrect guess -1 atempt")
+    length = len(secret_word)
+    #TODO: show the player information about the game according to the project spec
+    print("Spaceman Word Guessing Game")
+    print ("The secret word has:",length,"letters")
+    print("7 attempts remaining")
 
 
     letters_guessed = []
-    while True:
-        print("Guess letter")
-        if (guess) != 1:
-            print("Please enter a single letter: ")
-        elif guess in letters_guessed:
-            print("You have already guessed that letter. Choose again: ")
-        elif guess not in secret_word:
-            print("Please enter a LETTER: ")
+    attempt = 7
+
+    letters_left = list(string.ascii_lowercase)
+    while attempt > 0:
+        letter = str(input("Please enter a letter: "))
+        while len(letter) != 1:
+            letter =  str(input("Please enter a single letter: "))
+        while letter in letters_guessed:
+            letter = input("Please enter a new letter:  ")
+
+        letters_guessed.append(letter)
+        #TODO: Check if the guessed letter is in the secret or not and give the player feedback
+        if is_guess_in_word(letter,secret_word) == True:
+            print("The letter is correct!")
         else:
-            return guess
-        break
+            print("Try again!")
+            attempt += 1
+        #lists the incorrect words so far
+        print("The incorrect letters so far are: ", get_wrong_letters(letters_guessed,secret_word))
+
+
+
+
+
+        #TODO: show the guessed word so far
+        print(get_guessed_word(secret_word, letters_guessed))
+        #TODO: check if the game has been won or lost
+
+        #check why the y/n is not working
+        if is_word_guessed(secret_word, letters_guessed):
+            print("You win!")
+            again = input("Do you want to play again? Enter (y/n):   ")
+
+            if again.lower() == ("y"):
+                secret_word = load_word()
+                spaceman(secret_word)
+            else:
+                running = False
+
+        if  >= 7:
+            print("Thank you for playing!")
+            print ("The secret word was",(secret_word))
+            again = input("Do you want to play again?(y/n)")
+            if again == "y":
+                spaceman(load_word())
+            if "y" not in again:
+                running = False
+
+
+
+    # while True:
+    #     print("Guess letter")
+    #     if (guess) != 1:
+    #         print("Please enter a single letter: ")
+    #     elif guess in letters_guessed:
+    #         print("You have already guessed that letter. Choose again: ")
+    #     elif guess not in secret_word:
+    #         print("Please enter a LETTER: ")
+    #     else:
+    #         return guess
+    #     break
     # TODO: Check if the guessed letter is in the secret or not and give the player feedback
     # TODO: check if the game has been won or lost
 # These function calls that will start the game
