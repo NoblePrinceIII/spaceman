@@ -1,21 +1,21 @@
 # spaceman
-is word guessed
+is word guessed:
 
 if guessed letter is not in the random word
 it is guessed incorrectly
 otherwise its guessed correctly
 
-get guessed word
+get guessed word:
 if letter is in random word turn letter in to string
 if letter is not in random word turn letter into underscores
 
-is guess in word
+is guess in word:
 if guess in random word
 accept
 else
 do not accept
 
-spaceman
+spaceman:
 if number off attempts is more than attempt remaining you lose and if you guess correct word you win
 
 while guess attempt not one letter
