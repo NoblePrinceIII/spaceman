@@ -1,6 +1,7 @@
 from random import choice
 import string
 
+
 # function that reads a text file of words and randomly selects one to use as the secret word
 def load_word():
     f = open('words.txt', 'r')
@@ -52,24 +53,30 @@ def spaceman(secret_word):
     letters_guessed = []
     attempt = 7
 
+
     # declares a variable to a list of alphabets
     letters_left = list(string.ascii_lowercase)
 
-    # while loop that checks if user has won or kost the game based on attempts guessed and correct word
+
+    # while loop that checks if user has won or lost the game based on attempts guessed and correct word
     while attempt > 0 and is_word_guessed(secret_word, letters_guessed) == False:
         letter = str.lower(input("Please Enter a Letter: "))
 
-        # Ask's the player to guess one letter per attempt if its not one letters
+
+        # Ask's the player to guess one letter per attempt if its not one letter
         while len(letter) != 1:
             letter =  str.lower(input("Please Enter a Single Letter: "))
 
-        # checks if guessed letter in letters_guessed list
+
+        # checks if guessed letter in letters_guessed list and infroms user
         while letter in letters_guessed:
             letter = input("You Have Already Guessed This Letter Please Enter a New Letter: ")
+
 
         # If user makes an input error
         while str.isalpha(letter) == False:
             letter = input("Please Enter a Single Letter With no Space")
+
 
         # if user inputs correct letter if not subtract one attempt
         if is_guess_in_word(letter, secret_word) == True:
@@ -78,7 +85,8 @@ def spaceman(secret_word):
             print("Incorrect Letter Try again!")
             attempt -= 1
 
-        # checks and removes if guessed letter in already guessed list,
+
+        # checks and removes guessed letter from letters guessed list,
         if letter in letters_left:
            letters_left.remove(letter)
            letters_guessed.append(letter)
@@ -86,16 +94,19 @@ def spaceman(secret_word):
             pass
 
 
-        # shows the player information about the game according to the project spec
+        # shows attempted letters list
         print("Attempted Letters: ", *letters_guessed)
         print(letters_guessed)
+
 
         # displays underscores and the guessed letters
         print(get_guessed_word(secret_word, letters_guessed))
 
+
         # displays amount of guesses remaining and letters from list
         print("Guesses Remaining:", attempt)
         print("Letters Left:", *letters_left)
+
 
         # prints if the game has been won or lost
         if is_word_guessed(secret_word, letters_guessed):
@@ -106,7 +117,7 @@ def spaceman(secret_word):
 
 secret_word = load_word()
 spaceman(secret_word)
-# checks why the y/n is not working
+# asking user to play again
 again = input("Do you want to play again?(Y/N): ")
 if again == "y" or again == "Y":
     secret_word = load_word()
