@@ -72,40 +72,33 @@ def get_wrong_letters(letters_guessed,secret_word):
                 return wrongLetters
 
 def spaceman(secret_word):
-    # '''
-    # A function that controls the game of spaceman. Will start spaceman in the command line.
-    # Args:
-    #   secret_word (string): the secret word to guess.
-    # '''
-    # TODO: show the guessed word so far
-    # TODO: show the player information about the game according to the project spec
-    # TODO: Ask the player to guess one letter per round and check that it is only one letter
-    #  determine the number of turns
     length = len(secret_word)
-    #TODO: show the player information about the game according to the project spec
     print("Spaceman Word Guessing Game")
     print ("The Secret Word has:",length,"Letters")
     print("You have 7 Attempts Remaining")
     print(secret_word)
 
     letters_guessed = []
-    attempt = 7
+    attempt = 3
 
     letters_left = list(string.ascii_lowercase)
-    while attempt > 0:
+
+    while attempt > 0 and is_word_guessed(secret_word, letters_guessed) == False:
         letter = str.lower(input("Please Enter a Letter: "))
+
+
         while len(letter) != 1:
             letter =  str.lower(input("Please Enter a Single Letter: "))
+
         while letter in letters_guessed:
             letter = input("You Have Already Guessed This Letter Please Enter a New Letter: ")
+
         while str.isalpha(letter) == False:
             letter = input("Please Enter a Single Letter With no Space")
 
+        if is_guess_in_word(letter, secret_word) == True:
+             print("The Letter is Correct!")
 
-        print(get_guessed_word(secret_word, letters_guessed))
-
-        if is_guess_in_word(letter,secret_word) == True:
-            print("The Letter is Correct!")
         else:
             print("Incorrect Letter Try again!")
             attempt -= 1
@@ -118,28 +111,16 @@ def spaceman(secret_word):
 
         print("Attempted Letters: ", *letters_guessed)
         print(letters_guessed)
-
-        if letter in letters_left:
-           letters_left.remove(letter)
-           letters_guessed.append(letter)
-        else:
-            pass
+        print(get_guessed_word(secret_word, letters_guessed))
         print("Guess Remaining", attempt)
         print("Letters Left", *letters_left)
 
+        if is_word_guessed(secret_word, letters_guessed):
+             print("You Win")
 
-        #TODO: show the guessed word so far
-        #TODO: check if the game has been won or lost
-        #TODO: Check if the guessed letter is in the secret or not and give the player feedback
-        #check why the y/n is not working
+        if attempt == 0:
+            print("You Lose")
 
-# while attempt < 0 still have guesses Left and while guessed letter is not in secret word
-# if all the secret words guessed is met you win
-
-# dash = is_word_guessed(secret_word, letters_guessed):
-     # if dash == secret_word:
-     #    print("You win")
-     #        return
 
 secret_word = load_word()
 spaceman(secret_word)
@@ -149,3 +130,18 @@ if again == "y" or again == "Y":
     spaceman(secret_word)
 else:
     print("Thanks for Playing")
+
+    # '''
+    # A function that controls the game of spaceman. Will start spaceman in the command line.
+    # Args:
+    #   secret_word (string): the secret word to guess.
+    # '''
+    # TODO: show the guessed word so far
+    # TODO: show the player information about the game according to the project spec
+    # TODO: Ask the player to guess one letter per round and check that it is only one letter
+    #  determine the number of turns
+    #TODO: show the player information about the game according to the project spec
+    #TODO: show the guessed word so far
+    #TODO: check if the game has been won or lost
+    #TODO: Check if the guessed letter is in the secret or not and give the player feedback
+    #check why the y/n is not working
