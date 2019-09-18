@@ -1,3 +1,4 @@
+
 from random import choice
 import string
 
@@ -50,6 +51,7 @@ def spaceman(secret_word):
     print("You have 7 Attempts Remaining")
 
 
+
     letters_guessed = []
     attempt = 7
 
@@ -65,7 +67,7 @@ def spaceman(secret_word):
 
         # Ask's the player to guess one letter per attempt if its not one letter
         while len(letter) != 1:
-            letter =  str.lower(input("Please Enter a Single Letter: "))
+            letter = str.lower(input("Please Enter a Single Letter: "))
 
 
         # checks if guessed letter in letters_guessed list and infroms user
@@ -124,3 +126,29 @@ if again == "y" or again == "Y":
     spaceman(secret_word)
 else:
     print("Thanks for Playing")
+
+
+
+ # Test functions
+def test_get_guess_word():
+    assert get_guessed_word('test', ['t', 'e', 's', 't']) == "test"
+    assert get_guessed_word('cat', ['g', 'r', 'm']) == '___'
+    assert get_guessed_word('play',['x','l','u','y'])== "_l_y"
+
+
+def test_is_guess_in_word():
+    assert is_guess_in_word('c','car') == True
+    assert is_guess_in_word('c', 'bike') == False
+    assert is_guess_in_word('b', 'ball') == True
+
+
+def test_is_word_guessed():
+    assert is_word_guessed('make',['t', 'e', 's', 't']) == False
+    assert is_word_guessed('make',['m', 'a', 'k', 'e']) == True
+    assert is_word_guessed('make', ['n', 'm', 'a', 'k']) == False
+
+
+if __name__ == ("__main__"):
+    test_is_word_guessed()
+    test_is_guess_word()
+    test_get_guess_in_word()
